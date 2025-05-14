@@ -1,0 +1,5 @@
+sudo apt-get install -y i2c-tools
+pip install smbus smbus2
+git clone https://github.com/DFRobot/DFRobot_ADS1115
+git clone https://github.com/DFRobot/DFRobot_PH
+git clone https://github.com/GreenPonik/GreenPonik_PH_Python
