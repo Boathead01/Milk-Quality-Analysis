@@ -1,4 +1,7 @@
 import sys
+import glob
+import csv
+
 sys.path.insert(0,'DFRobot_ADS1115/RaspberryPi/Python/')
 sys.path.insert(0,'GreenPonik_PH_Python/src/')
 
@@ -65,5 +68,49 @@ def read_ph():
 
 
 
+#temperature function
+
+
+def read_temperature():
+    
+    #locate the onewire devices
+    base_dir = '/sys/bus/w1/devices/'
+    device_folder = glob.glob(base_dir + '28*')[0]  # DS18B20 folders start with '28'
+    device_file = device_folder + '/w1_slave'
+
+    try:
+        #open the device file and read the data 
+        with open(device_file, 'r') as f:
+            lines = f.readlines()
+        
+        if lines[0].strip()[-3:] != 'YES':
+            raise Exception("Temperature sensor CRC check failed.")
+
+        equals_pos = lines[1].find('t=')
+        if equals_pos != -1:
+            temp_string = lines[1][equals_pos + 2:]
+            temp_c = float(temp_string) / 1000.0
+            print(f"Temperature: {temp_c:.2f} °C")
+            return temp_c
+        else:
+            raise Exception("Temperature data not found.")
+    
+    except Exception as e:
+        print("Error reading temperature:", e)
+        return None
+
+
+#Function to Log the values into a csv file
+
+def log_values(ph_value, temperature, filename='ph_temp_log.csv'):
+    with open(filename, mode='a', newline='') as file:
+        writer = csv.writer(file)
+        writer.writerow([ph_value, temperature])
+        
+
+
 while True:
-    read_ph()
+        pH = read_ph()
+        temp = read_temperature()
+        log_values(pH,temp)
+
