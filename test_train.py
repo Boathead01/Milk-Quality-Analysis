@@ -4,7 +4,7 @@ from sklearn.cluster import KMeans
 import matplotlib.pyplot as plt
 
 
-df = pd.read_csv("milkquality.csv")
+df = pd.read_csv("milk_quality.csv")
 
 
 df.columns = df.columns.str.strip()

@@ -7,7 +7,7 @@
 This project aims to assess milk quality by measuring **pH** and **temperature** using:
 
 - **SEN0161 pH sensor**
-- **DFRobot Analog Temperature sensor**
+- **DS18B20 Temperature Sensor**
 
 These sensors are interfaced with a **Raspberry Pi**, and the collected data is calibrated and used to classify the milk's quality using a **KMeans clustering model**.
 
@@ -17,8 +17,7 @@ These sensors are interfaced with a **Raspberry Pi**, and the collected data is 
 
 - Raspberry Pi
 - SEN0161 pH Sensor
-- DFRobot Analog Temperature Sensor
-- ADS 1115 ADC (to read analog values from the sensors)
+- DS18B20 Temperature Sensor
 - Jumper wires
 - Breadboard
 - Power supply
